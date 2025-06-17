@@ -2,92 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Universal Web Proxy (Client-Side Only)</title>
+  <title>Universal Web Link</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #eee;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 700px;
-      margin: 30px auto;
-      background: #222;
-      padding: 2em;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px #0006;
-    }
-    h1 {
-      text-align: center;
-      color: #79b8ff;
-    }
-    form {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
-      justify-content: center;
-    }
-    input[type="url"] {
-      flex: 1;
-      padding: 8px;
-      border-radius: 5px;
-      border: none;
-      font-size: 1em;
-    }
-    button, a#openLink {
-      background: #2ea44f;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      padding: 8px 18px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    button:hover, a#openLink:hover {
-      background: #22863a;
-    }
-    #openLink {
-      margin-left: 10px;
-      display: none;
-    }
-    .note {
-      color: #ffb347;
-      font-size: 0.98em;
-      margin-bottom: 0.6em;
-      text-align: center;
-    }
+    .xYzA12 { background: #222; color: #eee; padding: 2em; border-radius: 12px; }
+    .aBcD34 { color: #79b8ff; }
+    .zZyY99 { display: flex; gap: 10px; margin-bottom: 16px; }
+    .qWeR56 { flex: 1; padding: 8px; border-radius: 5px; border: none; }
+    .eRtY78, .tYuI23 { background: #2ea44f; color: #fff; border: none; border-radius: 5px; padding: 8px 18px; font-size: 1em; cursor: pointer; text-decoration: none; }
+    .tYuI23 { margin-left: 10px; display: none; }
+    .note { color: #ffb347; font-size: 0.98em; margin-bottom: 0.6em; text-align: center; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Client-Side "Proxy"</h1>
+  <div class="xYzA12">
+    <h1 class="aBcD34">Client-Side Link Opener</h1>
     <div class="note">
-      <b>Note:</b> This client-side proxy only generates a link to the site you enter. For a real proxy, a server is required.<br>
-      <b>Embedded preview removed per your request.</b>
+      <b>Note:</b> No client-side tool can bypass browser extensions if the user chooses to block it.
     </div>
-    <form id="proxyForm">
-      <input type="url" id="urlInput" placeholder="Enter a website URL (e.g. https://example.com)" required>
-      <button type="submit">Get Link</button>
-      <a id="openLink" href="#" target="_blank" rel="noopener">Open Site</a>
+    <form class="zZyY99" id="form1">
+      <input type="url" class="qWeR56" id="input1" placeholder="Enter a website URL" required>
+      <button class="eRtY78" type="submit">Get Link</button>
+      <a class="tYuI23" id="link1" href="#" target="_blank" rel="noopener">Open Site</a>
     </form>
   </div>
   <script>
-    const form = document.getElementById('proxyForm');
-    const input = document.getElementById('urlInput');
-    const openLink = document.getElementById('openLink');
-
+    const form = document.getElementById('form1');
+    const input = document.getElementById('input1');
+    const link = document.getElementById('link1');
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       let url = input.value.trim();
       if (!/^https?:\/\//.test(url)) url = 'https://' + url;
-      openLink.href = url;
-      openLink.style.display = 'inline-block';
-      openLink.textContent = 'Open Site';
+      link.href = url;
+      link.style.display = 'inline-block';
+      link.textContent = 'Open Site';
     });
   </script>
 </body>
