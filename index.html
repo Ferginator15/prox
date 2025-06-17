@@ -2,40 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Universal Web Link</title>
-  <style>
-    .xYzA12 { background: #222; color: #eee; padding: 2em; border-radius: 12px; }
-    .aBcD34 { color: #79b8ff; }
-    .zZyY99 { display: flex; gap: 10px; margin-bottom: 16px; }
-    .qWeR56 { flex: 1; padding: 8px; border-radius: 5px; border: none; }
-    .eRtY78, .tYuI23 { background: #2ea44f; color: #fff; border: none; border-radius: 5px; padding: 8px 18px; font-size: 1em; cursor: pointer; text-decoration: none; }
-    .tYuI23 { margin-left: 10px; display: none; }
-    .note { color: #ffb347; font-size: 0.98em; margin-bottom: 0.6em; text-align: center; }
-  </style>
-</head>
-<body>
-  <div class="xYzA12">
-    <h1 class="aBcD34">Client-Side Link Opener</h1>
-    <div class="note">
-      <b>Note:</b> No client-side tool can bypass browser extensions if the user chooses to block it.
-    </div>
-    <form class="zZyY99" id="form1">
-      <input type="url" class="qWeR56" id="input1" placeholder="Enter a website URL" required>
-      <button class="eRtY78" type="submit">Get Link</button>
-      <a class="tYuI23" id="link1" href="#" target="_blank" rel="noopener">Open Site</a>
-    </form>
-  </div>
+  <title>Obfuscated Link Opener</title>
   <script>
-    const form = document.getElementById('form1');
-    const input = document.getElementById('input1');
-    const link = document.getElementById('link1');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      let url = input.value.trim();
-      if (!/^https?:\/\//.test(url)) url = 'https://' + url;
-      link.href = url;
-      link.style.display = 'inline-block';
-      link.textContent = 'Open Site';
+    // Generate random class/id names for obfuscation
+    function randomStr(len) {
+      return Array(len).fill(0).map(() =>
+        String.fromCharCode(97 + Math.floor(Math.random()*26))
+      ).join('');
+    }
+    // Generate unique names at page load
+    const rootClass = randomStr(10);
+    const formId = randomStr(10);
+    const inputId = randomStr(10);
+    const btnId = randomStr(10);
+    const linkId = randomStr(10);
+    const noteId = randomStr(10);
+
+    // Write critical CSS dynamically
+    document.write(`
+      <style>
+        .${rootClass} { background: #222; color: #eee; padding: 2em; border-radius: 12px; max-width: 700px; margin: 30px auto; font-family: Arial,sans-serif; box-shadow: 0 2px 8px #0006;}
+        #${noteId} { color: #ffb347; font-size: 0.98em; margin-bottom: 0.6em; text-align: center; }
+        #${formId} { display: flex; gap: 10px; margin-bottom: 16px; justify-content: center;}
+        #${inputId} { flex: 1; padding: 8px; border-radius: 5px; border: none; }
+        #${btnId}, #${linkId} { background: #2ea44f; color: #fff; border: none; border-radius: 5px; padding: 8px 18px; font-size: 1em; cursor: pointer; text-decoration: none; display: inline-block;}
+        #${btnId}:hover, #${linkId}:hover { background: #22863a;}
+        #${linkId} { margin-left: 10px; display: none;}
+      </style>
+    `);
+  </script>
+</head>
+<body style="background:#111;margin:0;padding:0;">
+  <script>
+    // Build DOM dynamically for extra obfuscation
+    document.write(`
+      <div class="${rootClass}">
+        <h1 style="color:#79b8ff;text-align:center;">Link Opener</h1>
+        <div id="${noteId}">
+          <b>Note:</b> No client-side tool can bypass browser extensions if the user chooses to block it.
+        </div>
+        <form id="${formId}">
+          <input type="url" id="${inputId}" placeholder="Enter a website URL" required autocomplete="off">
+          <button id="${btnId}" type="submit">Get Link</button>
+          <a id="${linkId}" href="#" target="_blank" rel="noopener">Open Site</a>
+        </form>
+      </div>
+    `);
+    // Add event handler after DOM is ready
+    window.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById(formId);
+      const input = document.getElementById(inputId);
+      const link = document.getElementById(linkId);
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let url = input.value.trim();
+        if (!/^https?:\/\//.test(url)) url = 'https://' + url;
+        link.href = url;
+        link.style.display = 'inline-block';
+        link.textContent = 'Open Site';
+      });
     });
   </script>
 </body>
