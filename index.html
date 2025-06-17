@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Obfuscated Link Opener</title>
+  <title>Obfuscated Iframe Link Opener</title>
   <script>
     // Generate random class/id names for obfuscation
     function randomStr(len) {
@@ -10,13 +10,14 @@
         String.fromCharCode(97 + Math.floor(Math.random()*26))
       ).join('');
     }
-    // Generate unique names at page load
+    // Unique names at page load
     const rootClass = randomStr(10);
     const formId = randomStr(10);
     const inputId = randomStr(10);
     const btnId = randomStr(10);
     const linkId = randomStr(10);
     const noteId = randomStr(10);
+    const iframeId = randomStr(10);
 
     // Write critical CSS dynamically
     document.write(`
@@ -28,6 +29,7 @@
         #${btnId}, #${linkId} { background: #2ea44f; color: #fff; border: none; border-radius: 5px; padding: 8px 18px; font-size: 1em; cursor: pointer; text-decoration: none; display: inline-block;}
         #${btnId}:hover, #${linkId}:hover { background: #22863a;}
         #${linkId} { margin-left: 10px; display: none;}
+        #${iframeId} { width: 100%; height: 80vh; border: none; background: #fff; border-radius: 8px; margin-top: 10px; display: none;}
       </style>
     `);
   </script>
@@ -37,15 +39,16 @@
     // Build DOM dynamically for extra obfuscation
     document.write(`
       <div class="${rootClass}">
-        <h1 style="color:#79b8ff;text-align:center;">Link Opener</h1>
+        <h1 style="color:#79b8ff;text-align:center;">Iframe Link Opener</h1>
         <div id="${noteId}">
-          <b>Note:</b> No client-side tool can bypass browser extensions if the user chooses to block it.
+          <b>Note:</b> Many websites block embedding in iframes. No client-side tool can bypass browser extensions if the user chooses to block it.
         </div>
         <form id="${formId}">
           <input type="url" id="${inputId}" placeholder="Enter a website URL" required autocomplete="off">
-          <button id="${btnId}" type="submit">Get Link</button>
-          <a id="${linkId}" href="#" target="_blank" rel="noopener">Open Site</a>
+          <button id="${btnId}" type="submit">Open in Iframe</button>
+          <a id="${linkId}" href="#" target="_blank" rel="noopener">Open Site in New Tab</a>
         </form>
+        <iframe id="${iframeId}" sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
       </div>
     `);
     // Add event handler after DOM is ready
@@ -53,13 +56,16 @@
       const form = document.getElementById(formId);
       const input = document.getElementById(inputId);
       const link = document.getElementById(linkId);
+      const iframe = document.getElementById(iframeId);
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         let url = input.value.trim();
         if (!/^https?:\/\//.test(url)) url = 'https://' + url;
         link.href = url;
         link.style.display = 'inline-block';
-        link.textContent = 'Open Site';
+        link.textContent = 'Open Site in New Tab';
+        iframe.src = url;
+        iframe.style.display = 'block';
       });
     });
   </script>
